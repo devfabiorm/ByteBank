@@ -11,7 +11,14 @@ namespace _07_ByteBank
     {
         static void Main(string[] args)
         {
-            CarregarContas();
+            try
+            {
+                CarregarContas();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("CATCH NO MÉTODO MAIN.");
+            }
 
             Console.WriteLine("Execução finalizada. Tecle ENTER para sair");
             Console.ReadLine();
@@ -19,27 +26,28 @@ namespace _07_ByteBank
 
         public static void CarregarContas()
         {
-            LeitorDeArquivos leitor = null;
+            using(LeitorDeArquivos leitor = new LeitorDeArquivos("teste.txt"))
+            {
+                leitor.LerProximaLinha();
+            }
 
-            try
-            {
-                leitor = new LeitorDeArquivos("contas.txt");
+            //LeitorDeArquivos leitor = null;
 
-                leitor.LerProximaLinha();
-                leitor.LerProximaLinha();
-                leitor.LerProximaLinha();
-            }
-            catch (IOException)
-            {
-                Console.WriteLine("Exceção do tipo IOException capturada e tratada");
-            }
-            finally
-            {
-                if(leitor != null)
-                {
-                    leitor.Fechar();
-                }
-            }
+            //try
+            //{
+            //    leitor = new LeitorDeArquivos("contas.txt");
+
+            //    leitor.LerProximaLinha();
+            //    leitor.LerProximaLinha();
+            //    leitor.LerProximaLinha();
+            //}
+            //finally
+            //{
+            //    if(leitor != null)
+            //    {
+            //        leitor.Fechar();
+            //    }
+            //}
         }
 
         public static void TentaInnerException()
